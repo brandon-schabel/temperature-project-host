@@ -8,7 +8,7 @@ import re
 import json
 from json import dumps
 import sys
-
+import os
 
 app = Flask(__name__)
 '''
@@ -115,7 +115,7 @@ def temperatures_by_hour_api(numHours):
 def index():
     # return jsonify({'temperature': documents[0]['temperature'], 'date':
     # documents[0]['date']})
-    return "Hello World"
+    return "go to /temperatures/1 to see temp data, you can change the number, number is in hours"
 
 
 def json_serial(obj):
