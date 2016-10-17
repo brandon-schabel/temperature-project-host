@@ -35,15 +35,19 @@ def all_temp_data_hour_serial(howManyHours):
     cursor = temperatures.find(
         {'date': {'$lt': currentDateTime, '$gte': lastHour}})
 
+    temperaturesDict = {'temperatures': []}
+
     documents = []
 
     for document in cursor:
         jsonObject = {'temperature': document['temperature'],
                       'date': dumps(document['date'], default=json_serial)}
 
-        documents.append(jsonObject)
+        temperaturesDict['temperatures'].append(jsonObject)
 
-    return documents
+    #temperaturesDict['temperatures'].append(documents)
+    print(temperaturesDict)
+    return temperaturesDict
 
 
 def all_temp_data_hour(howManyHours):
