@@ -75,7 +75,7 @@ def temperatures_by_hour_api(numHours):
 @app.route('/')
 def index():
 
-    return 'Hello how are you today?'
+    return jsonify(all_temp_data_hour_serial(6))
 
 
 def json_serial(obj):
