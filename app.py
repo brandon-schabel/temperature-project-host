@@ -1,4 +1,5 @@
-from flask import Response, Flask, jsonify, make_response, url_for
+from flask import Response, Flask, jsonify, make_response, url_for, render_template
+from flask_cors import CORS, cross_origin
 from bson import json_util
 from time import sleep, time
 from pymongo import MongoClient
@@ -11,7 +12,7 @@ import os
 import pytz
 
 app = Flask(__name__)
-
+CORS(app)
 client = MongoClient('ds059316.mlab.com', 59316)
 db = client['temp-database']
 db.authenticate('beans', 'beans')
@@ -36,9 +37,7 @@ def all_temp_data_hour_serial(howManyHours):
         {'date': {'$lt': currentDateTime, '$gte': lastHour}})
 
     temperaturesDict = {'temperatures': []}
-
-    documents = []
-
+    
     for document in cursor:
         jsonObject = {'temperature': document['temperature'],
                       'date': dumps(document['date'], default=json_serial)}
@@ -47,6 +46,7 @@ def all_temp_data_hour_serial(howManyHours):
 
     #temperaturesDict['temperatures'].append(documents)
     print(temperaturesDict)
+    
     return temperaturesDict
 
 
@@ -75,7 +75,7 @@ def temperatures_by_hour_api(numHours):
 @app.route('/')
 def index():
 
-    return "go to /temperatures/1 to see temp data, you can change the number, number is in hours"
+    return 'Hello how are you today?'
 
 
 def json_serial(obj):
