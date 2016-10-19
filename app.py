@@ -1,4 +1,5 @@
-from flask import Response, Flask, jsonify, make_response, url_for, render_template
+from flask import Response, Flask, jsonify, make_response, url_for, render_template, \
+         send_from_directory
 from flask_cors import CORS, cross_origin
 from bson import json_util
 from time import sleep, time
@@ -66,10 +67,14 @@ def all_temp_data_hour(howManyHours):
 
 @app.route('/temperatures/<int:numHours>')
 def temperatures_by_hour_api(numHours):
-	allTemps = all_temp_data_hour_serial(numHours)
+    allTemps = all_temp_data_hour_serial(numHours)
 
-	#return Response(jsonify(allTemps))
-	return jsonify(allTemps)
+    #return Response(jsonify(allTemps))
+    return jsonify(allTemps)
+
+@app.route('/tempdisplay')
+def temp_display():
+    return render_template("tempdisplay.html")
 
 
 @app.route('/')
