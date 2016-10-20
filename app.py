@@ -13,15 +13,21 @@ import os
 import pytz
 
 app = Flask(__name__)
+#I was getting some weird cross origin errors when I would try to connect to the API so I had to add this CORS(app)
 CORS(app)
+#need to figure ouot how to hide this, also so a user can connect to their own database
 client = MongoClient('ds059316.mlab.com', 59316)
+
+#connecting to our mlab database
 db = client['temp-database']
 db.authenticate('beans', 'beans')
 
+#connect to a db named temperatures
 temperatures = db.temperatures
 
+#this function returns objects straight from the Mongo database
 def temps_by_hour(howManyHours):
-    # current time
+    #gets current time, all times are in UTC.
     currentDateTime = datetime.utcnow()
     lastHour = datetime.utcnow() - timedelta(hours=howManyHours)
 
@@ -35,17 +41,23 @@ def all_temp_data_hour_serial(howManyHours):
     lastHour = datetime.utcnow() - timedelta(hours=howManyHours)
     
     cursor = temperatures.find(
+        #this queries our mongoDB and gets a time between the set amount of hours and the current time
+        #$lt stands for less than and $gte stands for greater than
         {'date': {'$lt': currentDateTime, '$gte': lastHour}})
-
+    
+    #this initializes our temperatures dictionary which will be the JSON data we will send
     temperaturesDict = {'temperatures': []}
     
+    #this for loop goes through our query parameters, gets the sensor data that we want and adds it to our variable jsonObject
+    #jsonObject is then appended to our temperaturesDict under the 'temperatures' key. do it would look something like {"temperatures":[{
+         #                                                                                                           "temperature": '78.5},
+         #                                                                                                           "date": 20161203T033027}]}
     for document in cursor:
         jsonObject = {'temperature': document['temperature'],
                       'date': dumps(document['date'], default=json_serial)}
 
         temperaturesDict['temperatures'].append(jsonObject)
-
-    #temperaturesDict['temperatures'].append(documents)
+         
     print(temperaturesDict)
     
     return temperaturesDict
