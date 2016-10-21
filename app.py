@@ -64,6 +64,7 @@ def all_temp_data_hour_serial(howManyHours):
 
 
 def all_temp_data_hour(howManyHours):
+    #same as above but not yet serialized so I can use with python
     currentDateTime = datetime.utcnow()
     lastHour = datetime.utcnow() - timedelta(hours=howManyHours)
 
@@ -77,6 +78,7 @@ def all_temp_data_hour(howManyHours):
 
     return documents
 
+#<int:numHours> is the variable we will use to determine the number of hours the user wants
 @app.route('/temperatures/<int:numHours>')
 def temperatures_by_hour_api(numHours):
     allTemps = all_temp_data_hour_serial(numHours)
@@ -92,7 +94,7 @@ def temp_display():
 @app.route('/')
 def index():
 
-    return jsonify(all_temp_data_hour_serial(6))
+    return "Welcome to Temp Display"
 
 
 def json_serial(obj):
@@ -105,5 +107,6 @@ def json_serial(obj):
 
 if __name__ == '__main__':
     #app.run(debug=True)
+    #get port assigned by OS else set it to 5000
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
