@@ -23,12 +23,13 @@ ser = serial.Serial(arduinoPort)
 
 print(ser)
 
-counter = 32
+counter = 0
 
 while True:
-    sleep(120)
     print('while loop')
+    print(str(ser.readline()))
     counter += 1
+    print(str(counter) + " temps logged this session")
     
     #get temperatures from the arduino serial
     temp = str(ser.readline())
@@ -50,4 +51,5 @@ while True:
     temperatures = db.temperatures
 
     print('logged ' + str(temperatures.find_one({'date':currentDateTime})))
-          
+
+    sleep(120)
