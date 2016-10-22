@@ -1,51 +1,16 @@
-<head><script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-      <script type=text/javascript>
-var myData;
-var yTemp = [];
-var xTime = [];
-//var xArrayLen = [];
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
 
-$.getJSON('http://localhost:5000/temperatues/6', function(data) {
-  console.log(data);
-  console.log(data['temperatures']);
-  
-  for(i = 0; i < data['temperatures'].length; i++) {
-    yTemp.push(data['temperatures'][i]['temperature']);
-    yTemp[i] = parseFloat(yTemp[i]);
-  }
-  
-  /* for(i = 0; i < data['temperatures'].length; i++) {
-    xArrayLen.push(i);
-  } */ 
-  
-  for(i = 0; i < data['temperatures'].length; i++) {
-    xTime.push(data['temperatures'][i]['date']);
-    xTime[i] = xTime[i].substring(1,xTime[i].length-1)
-    xTime[i] = new Date(xTime[i])
-  }
-  
-  console.log(yTemp);
-  console.log(xTime);
-  //console.log(xArrayLen);
-  
-  var graphData = [
-  {
-    x: xTime,
-    y: yTemp,
-    type: 'scatter'
-  }
-];
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <!-- ... -->
+</div>
+{% endblock %}
 
-Plotly.newPlot('myDiv', graphData);
-});
-      </script>
-</head>
-<body>
-  <div>
-  </div>
-  
-  <div id="myDiv">
-    
-  </div>
-</body>
+{% block content %}
+  <h1>Hello, Bootstrap</h1>
+{% endblock %}
+
+<div>
+dicks
+</div>

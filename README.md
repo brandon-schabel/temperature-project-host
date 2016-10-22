@@ -25,4 +25,6 @@ I want to implement the folowing:
 
 - eventually will have to add a more robust way of connecting to arduino serial(listing serial ports on webpage and then using a form to connect to Arduino) and submitting the arduino data from flask to the MongoDB, similar to how I do it now but all in one package.
 
+- in duino-script where it logs the temperature, query the database to get the last temperature, and make sure there isn't a huge difference in temperature
+
 - That should keep me busy for a while.

@@ -3,10 +3,12 @@
   <script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
   <script type=text/javascript>
     $(function() {
-          $('a#process_input').bind('click', function() {
-          $.getJSON('/temperatures/6', {
+        $('a#process_input').bind('click', function() {
+          var numOfHours = "";
+          numOfHours = $("#numOfHours").val();
+          console.log(numOfHours);
+          $.getJSON('/temperatures/'+ numOfHours, {
             //below it assings a variable numOfHours to the input with the name numOfHours below
-            numOfHours: $('input[name="numOfhours"]').val(),
           }, function(data) {
             //here data is the json that we return and temperatures is the key we are getting and setting that to #result
             //#result is whatever we set as id=result in the html
@@ -51,7 +53,7 @@
     <h3>Temp Display</h3>
     <!-- we used form so we can press enter to submit the form -->
     <form>
-      <input type=text size=5 name=numOfHours>
+      <input type=text size=5 name=numOfHours id=numOfHours>
       <!--id=process_input allows us to tie our button to a javascript function -->
       <a href='#' id=process_input><button>Submit</button></a>
     </form>

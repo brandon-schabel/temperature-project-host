@@ -1,5 +1,6 @@
 from flask import Response, Flask, jsonify, make_response, url_for, render_template, \
          send_from_directory
+from flask_bootstrap import Bootstrap
 from flask_cors import CORS, cross_origin
 from bson import json_util
 from time import sleep, time
@@ -13,6 +14,7 @@ import os
 import pytz
 
 app = Flask(__name__)
+Bootstrap(app)
 #I was getting some weird cross origin errors when I would try to connect to the API so I had to add this CORS(app)
 CORS(app)
 #need to figure ouot how to hide this, also so a user can connect to their own database
@@ -94,7 +96,7 @@ def temp_display():
 @app.route('/')
 def index():
 
-    return "Welcome to Temp Display"
+    return render_template("index.html")
 
 
 def json_serial(obj):
