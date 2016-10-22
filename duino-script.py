@@ -26,7 +26,7 @@ print(ser)
 counter = 32
 
 while True:
-    sleep(30)
+    sleep(120)
     print('while loop')
     counter += 1
     
