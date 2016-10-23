@@ -1,4 +1,6 @@
-</head>
+{% extends "header.html" %}
+{% block body %}
+<div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="{{ url_for('static', filename='plotly-latest.min.js') }}"></script>
   <script type=text/javascript>
@@ -47,8 +49,8 @@
         });
 
   </script>
-</head>
-<body>
+</div>
+<div>
   <div>
     <h3>Temp Display</h3>
     <!-- we used form so we can press enter to submit the form -->
@@ -60,4 +62,6 @@
   </div>
   <div id=myDiv>
   </div>
-</body>
+</div>
+
+{% endblock %}
